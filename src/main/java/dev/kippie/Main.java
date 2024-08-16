@@ -1,10 +1,7 @@
 package dev.kippie;
 
 
-import dev.kippie.commands.Avatar;
-import dev.kippie.commands.Nokia;
-import dev.kippie.commands.Ping;
-import dev.kippie.commands.WYR;
+import dev.kippie.commands.*;
 import dev.kippie.listeners.WelcomeListener;
 import dev.kippie.managers.slashcommandmanager;
 import io.github.cdimascio.dotenv.Dotenv;
@@ -25,9 +22,10 @@ public class Main {
     public Main() throws LoginException, InterruptedException {
         Dotenv dotenv = Dotenv.load();
         String token = dotenv.get("TOKEN");
+        String status = dotenv.get("STATUS");
         DefaultShardManagerBuilder builder = DefaultShardManagerBuilder.createDefault(token);
         builder.setStatus(OnlineStatus.DO_NOT_DISTURB);
-        builder.setActivity(Activity.watching("Help me!"));
+        builder.setActivity(Activity.watching(status));
         builder.enableIntents(GatewayIntent.GUILD_MEMBERS, GatewayIntent.GUILD_MESSAGES, GatewayIntent.DIRECT_MESSAGES, GatewayIntent.MESSAGE_CONTENT);
         shardManager = builder.build();
         shardManager.addEventListener(
@@ -36,7 +34,10 @@ public class Main {
                 new Avatar(),
                 new Nokia(),
                 new WelcomeListener(),
-                new WYR()
+                new WYR(),
+                new Fact(),
+                new Dog(),
+                new Cat()
         );
 
 

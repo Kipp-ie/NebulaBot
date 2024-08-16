@@ -1,0 +1,6 @@
+# KOSDB - Kippie's Open-Source Discord Bot
+
+Hi, i'm Kippie and i made a open-source Discord bot based on JDA (Java Discord API). If you want to use my bot, you don't need to give me credits, however a star would be appreciated :).
+
+# How to use this bot?
+Download the zip file in release. Unpack it, there should be a .jar file and a .env file. Warning, you can't move the .env file, the bot won't work anymore. Use the .env file to change properties of the bot!. Have fun! Questions? Dm me on Discord: @kippenboutske, or create an issue!

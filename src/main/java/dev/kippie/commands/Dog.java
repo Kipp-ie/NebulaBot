@@ -5,7 +5,6 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import io.github.cdimascio.dotenv.Dotenv;
 import net.dv8tion.jda.api.EmbedBuilder;
-import net.dv8tion.jda.api.entities.emoji.Emoji;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
@@ -13,15 +12,17 @@ import java.awt.*;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.Serial;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 
-public class WYR extends ListenerAdapter {
+public class Dog extends ListenerAdapter {
+
     @Override
     public void onSlashCommandInteraction(SlashCommandInteractionEvent event) {
-        if (event.getName().equals("wyr")) {
-            String sURL = "https://api.popcat.xyz/wyr";
+        if (event.getName().equals("dog")) {
+            String sURL = "https://dog.ceo/api/breeds/image/random";
 
 
             URL url = null;
@@ -51,23 +52,18 @@ public class WYR extends ListenerAdapter {
                 throw new RuntimeException(e);
             }
             JsonObject rootobj = root.getAsJsonObject();
-            String option1 = rootobj.get("ops1").getAsString();
-            String option2 = rootobj.get("ops2").getAsString();
-            event.reply("WYR posted!").setEphemeral(true).queue();
+            String image_url = rootobj.get("message").getAsString();
             EmbedBuilder embed = new EmbedBuilder();
-            embed.setTitle("WYR - Would you Rather");
-            embed.addField("Option 1", option1, false);
-            embed.addField("Option 2", option2, false);
+            embed.setTitle("Here's your random dog picture!");
+            embed.setImage(image_url);
             Dotenv dotenv = Dotenv.load();
             String color = dotenv.get("COLOR");
-            embed.setColor(Color.decode(color));
             String name = dotenv.get("BOT_NAME");
             embed.setFooter(name);
-            embed.setAuthor(event.getUser().getName());
-            event.getChannel().sendMessageEmbeds(embed.build()).queue(message -> {
-                message.addReaction(Emoji.fromUnicode("1\uFE0F⃣")).queue();
-                message.addReaction(Emoji.fromUnicode("2\uFE0F⃣")).queue();
-            });
+            embed.setColor(Color.decode(color));
+            event.replyEmbeds(embed.build()).queue();
+
+
         }
     }
 }
