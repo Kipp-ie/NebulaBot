@@ -37,7 +37,11 @@ public class Main {
                 new WYR(),
                 new Fact(),
                 new Dog(),
-                new Cat()
+                new Cat(),
+                new SadCat(),
+                new Alert(),
+                new Ship(),
+                new Drip()
         );
 
 

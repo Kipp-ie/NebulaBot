@@ -6,6 +6,7 @@ import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEve
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
 import java.awt.*;
+import java.util.Objects;
 
 public class Avatar extends ListenerAdapter {
     @Override
@@ -13,8 +14,8 @@ public class Avatar extends ListenerAdapter {
         if (event.getName().equals("avatar")) {
             Dotenv dotenv = Dotenv.load();
             EmbedBuilder embed = new EmbedBuilder();
-            embed.setTitle("Avatar of " + event.getUser().getName());
-            embed.setImage(event.getUser().getAvatarUrl());
+            embed.setTitle("Avatar of " + event.getOption("user").getAsUser().getName());
+            embed.setImage(Objects.requireNonNull(event.getOption("user")).getAsUser().getAvatarUrl());
             String color = dotenv.get("COLOR");
             String name = dotenv.get("BOT_NAME");
             embed.setFooter(name);

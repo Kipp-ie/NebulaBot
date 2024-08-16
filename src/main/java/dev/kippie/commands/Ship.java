@@ -6,20 +6,19 @@ import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEve
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
 import java.awt.*;
-import java.util.Objects;
 
-public class Nokia extends ListenerAdapter {
+public class Ship extends ListenerAdapter {
     @Override
     public void onSlashCommandInteraction(SlashCommandInteractionEvent event) {
-        if (event.getName().equals("nokia")) {
+        if (event.getName().equals("ship")) {
             EmbedBuilder embed = new EmbedBuilder();
-            embed.setTitle(Objects.requireNonNull(event.getOption("user")).getAsUser().getName() + " turned into a Nokia?");
+            embed.setTitle(event.getOption("user1").getAsUser().getName() + " fell in love with " + event.getOption("user2").getAsUser().getName() + "!");
             Dotenv dotenv = Dotenv.load();
             String color = dotenv.get("COLOR");
             embed.setColor(Color.decode(color));
             String name = dotenv.get("BOT_NAME");
             embed.setFooter(name);
-            embed.setImage("https://api.popcat.xyz/nokia?image=" + event.getOption("user").getAsUser().getAvatarUrl());
+            embed.setImage("https://api.popcat.xyz/ship?user1=" + event.getOption("user1").getAsUser().getAvatarUrl() + "&user2=" + event.getOption("user2").getAsUser().getAvatarUrl() );
             event.replyEmbeds(embed.build()).queue();
         }
     }
