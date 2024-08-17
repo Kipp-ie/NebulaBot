@@ -48,7 +48,9 @@ public class Main {
                 new OnJoin(),
                 new Add(),
                 new Meme(),
-                new Kick()
+                new Kick(),
+                new Ban(),
+                new TimeOut()
         );
 
 

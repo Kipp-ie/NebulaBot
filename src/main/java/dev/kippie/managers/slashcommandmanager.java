@@ -92,10 +92,16 @@ public class slashcommandmanager extends ListenerAdapter {
         }
         if (moderation_enabled.equals("true")) {
             commands.add(Commands.slash("kick", "Kick an user if you have the permissions.")
-                    .addOption(OptionType.USER, "user", "Choose the user to kick")
-                    .addOption(OptionType.STRING, "reason", "Give a reason to DM the kicked user."));
-            commands.add(Commands.slash("ban", "Ban an user if you have the permissions."));
-            commands.add(Commands.slash("timeout", "Timeout an user if you have the permissions."));
+                    .addOption(OptionType.USER, "user", "Choose the user to kick.", true)
+                    .addOption(OptionType.STRING, "reason", "Give a reason to DM the kicked user.", true));
+            commands.add(Commands.slash("ban", "Ban an user if you have the permissions.")
+                    .addOption(OptionType.USER, "user", "Choose the user to ban.", true)
+                    .addOption(OptionType.STRING, "reason", "Give a reason to DM the banned user.", true)
+                    .addOption(OptionType.INTEGER, "duration", "Give the amount of days to ban this user.", true));
+            commands.add(Commands.slash("timeout", "Timeout an user if you have the permissions.")
+                    .addOption(OptionType.USER, "user", "Choose the user to give a timeout.", true)
+                    .addOption(OptionType.STRING, "reason", "Give a reason to DM the timeouted user.", true)
+                    .addOption(OptionType.INTEGER, "duration", "Give the amount of hours to timeout this user.", true));
         }
 
         event.getGuild().updateCommands().addCommands(commands).queue();
