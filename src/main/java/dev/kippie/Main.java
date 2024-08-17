@@ -46,7 +46,9 @@ public class Main {
                 new RPS(),
                 new Ticket(),
                 new OnJoin(),
-                new Add()
+                new Add(),
+                new Meme(),
+                new Kick()
         );
 
 

@@ -11,7 +11,7 @@
     </repositories>
 
     <groupId>dev.kippie</groupId>
-    <artifactId>AlsJeDitLeestHelpMijUitOneindigeHell</artifactId>
+    <artifactId>NebulaBot</artifactId>
     <version>1.0-SNAPSHOT</version>
     <dependencies>
         <dependency>

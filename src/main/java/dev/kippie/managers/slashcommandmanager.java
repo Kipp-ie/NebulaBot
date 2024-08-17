@@ -27,6 +27,8 @@ public class slashcommandmanager extends ListenerAdapter {
         String drip_enabled = dotenv.get("DRIP");
         String rps_enabled = dotenv.get("RPS");
         String ticket_enabled = dotenv.get("TICKET_SYSTEM");
+        String meme_enabled = dotenv.get("MEME");
+        String moderation_enabled = dotenv.get("MODERATION");
         List<CommandData> commands = new ArrayList<>();
 
         if (avatar_enabled.equals("true")) {
@@ -83,7 +85,19 @@ public class slashcommandmanager extends ListenerAdapter {
             commands.add(Commands.slash("ticket", "Open a ticket"));
             commands.add(Commands.slash("add", "Add another user to a ticket")
                     .addOption(OptionType.USER, "user", "Choose a user to add to the ticket"));
-            event.getGuild().updateCommands().addCommands(commands).queue();
+
         }
+        if (meme_enabled.equals("true")) {
+            commands.add(Commands.slash("meme", "Generate a random meme"));
+        }
+        if (moderation_enabled.equals("true")) {
+            commands.add(Commands.slash("kick", "Kick an user if you have the permissions.")
+                    .addOption(OptionType.USER, "user", "Choose the user to kick")
+                    .addOption(OptionType.STRING, "reason", "Give a reason to DM the kicked user."));
+            commands.add(Commands.slash("ban", "Ban an user if you have the permissions."));
+            commands.add(Commands.slash("timeout", "Timeout an user if you have the permissions."));
+        }
+
+        event.getGuild().updateCommands().addCommands(commands).queue();
     }
 }
