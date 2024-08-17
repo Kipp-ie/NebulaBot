@@ -41,7 +41,8 @@ public class Main {
                 new SadCat(),
                 new Alert(),
                 new Ship(),
-                new Drip()
+                new Drip(),
+                new RPS()
         );
 
 

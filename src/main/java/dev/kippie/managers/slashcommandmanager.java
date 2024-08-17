@@ -6,6 +6,7 @@ import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.CommandData;
 import net.dv8tion.jda.api.interactions.commands.build.Commands;
+import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +25,7 @@ public class slashcommandmanager extends ListenerAdapter {
         String alert_enabled = dotenv.get("ALERT");
         String ship_enabled = dotenv.get("SHIP");
         String drip_enabled = dotenv.get("DRIP");
+        String rps_enabled = dotenv.get("RPS");
         List<CommandData> commands = new ArrayList<>();
 
         if (avatar_enabled.equals("true")) {
@@ -66,7 +68,16 @@ public class slashcommandmanager extends ListenerAdapter {
             commands.add(Commands.slash("drip", "Drippify someone")
                     .addOption(OptionType.USER, "user", "Choose someone to drippify"));
         }
+        if (rps_enabled.equals("true")) {
+            commands.add(Commands.slash("rps", "Play Rock Paper Scissors against a bot!")
+                    .addOptions(
+                            new OptionData(OptionType.STRING, "choice", "Choose rock, paper op sciccors")
+                                    .addChoice("Rock", "rock")
+                                    .addChoice("Paper", "paper")
+                                    .addChoice("Scissors", "scissors")
+                    ));
 
+        }
         event.getGuild().updateCommands().addCommands(commands).queue();
 
     }
