@@ -26,6 +26,7 @@ public class slashcommandmanager extends ListenerAdapter {
         String ship_enabled = dotenv.get("SHIP");
         String drip_enabled = dotenv.get("DRIP");
         String rps_enabled = dotenv.get("RPS");
+        String ticket_enabled = dotenv.get("TICKET_SYSTEM");
         List<CommandData> commands = new ArrayList<>();
 
         if (avatar_enabled.equals("true")) {
@@ -78,9 +79,11 @@ public class slashcommandmanager extends ListenerAdapter {
                     ));
 
         }
-        commands.add(Commands.slash("ticket", "Open a ticket"));
-        commands.add(Commands.slash("close", "Close a ticket"));
-        event.getGuild().updateCommands().addCommands(commands).queue();
-
+        if (ticket_enabled.equals("true")) {
+            commands.add(Commands.slash("ticket", "Open a ticket"));
+            commands.add(Commands.slash("add", "Add another user to a ticket")
+                    .addOption(OptionType.USER, "user", "Choose a user to add to the ticket"));
+            event.getGuild().updateCommands().addCommands(commands).queue();
+        }
     }
 }

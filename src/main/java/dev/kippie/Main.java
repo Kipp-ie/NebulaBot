@@ -2,6 +2,7 @@ package dev.kippie;
 
 
 import dev.kippie.commands.*;
+import dev.kippie.listeners.OnJoin;
 import dev.kippie.listeners.WelcomeListener;
 import dev.kippie.managers.slashcommandmanager;
 import io.github.cdimascio.dotenv.Dotenv;
@@ -44,7 +45,8 @@ public class Main {
                 new Drip(),
                 new RPS(),
                 new Ticket(),
-                new Close()
+                new OnJoin(),
+                new Add()
         );
 
 
