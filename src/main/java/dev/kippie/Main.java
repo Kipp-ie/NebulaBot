@@ -42,7 +42,9 @@ public class Main {
                 new Alert(),
                 new Ship(),
                 new Drip(),
-                new RPS()
+                new RPS(),
+                new Ticket(),
+                new Close()
         );
 
 

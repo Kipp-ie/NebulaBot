@@ -78,6 +78,8 @@ public class slashcommandmanager extends ListenerAdapter {
                     ));
 
         }
+        commands.add(Commands.slash("ticket", "Open a ticket"));
+        commands.add(Commands.slash("close", "Close a ticket"));
         event.getGuild().updateCommands().addCommands(commands).queue();
 
     }
