@@ -50,7 +50,10 @@ public class Main {
                 new Meme(),
                 new Kick(),
                 new Ban(),
-                new TimeOut()
+                new TimeOut(),
+                new Lyrics(),
+                new Quote(),
+                new Pickuplines()
         );
 
 

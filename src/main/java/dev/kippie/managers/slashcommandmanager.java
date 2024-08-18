@@ -29,6 +29,9 @@ public class slashcommandmanager extends ListenerAdapter {
         String ticket_enabled = dotenv.get("TICKET_SYSTEM");
         String meme_enabled = dotenv.get("MEME");
         String moderation_enabled = dotenv.get("MODERATION");
+        String lyrics_enabled = dotenv.get("LYRICS");
+        String quote_enabled = dotenv.get("QUOTE");
+        String pickuplines_enabled = dotenv.get("PICKUPLINES");
         List<CommandData> commands = new ArrayList<>();
 
         if (avatar_enabled.equals("true")) {
@@ -102,6 +105,18 @@ public class slashcommandmanager extends ListenerAdapter {
                     .addOption(OptionType.USER, "user", "Choose the user to give a timeout.", true)
                     .addOption(OptionType.STRING, "reason", "Give a reason to DM the timeouted user.", true)
                     .addOption(OptionType.INTEGER, "duration", "Give the amount of hours to timeout this user.", true));
+        }
+        if (lyrics_enabled.equals("true")) {
+            commands.add(Commands.slash("lyrics", "Get lyrics from a song.")
+                    .addOption(OptionType.STRING, "song", "Song name."));
+        }
+        if (quote_enabled.equals("true")) {
+            commands.add(Commands.slash("quote", "Generate a quote!")
+                    .addOption(OptionType.USER, "user", "Give the user of who the quote should be", true)
+                    .addOption(OptionType.STRING, "quote", "Give the text that should be used in the quote.", true));
+        }
+        if (pickuplines_enabled.equals("true")) {
+            commands.add(Commands.slash("pickuplines", "Generate a random pickup line!"));
         }
 
         event.getGuild().updateCommands().addCommands(commands).queue();
