@@ -53,7 +53,9 @@ public class Main {
                 new TimeOut(),
                 new Lyrics(),
                 new Quote(),
-                new Pickuplines()
+                new Pickuplines(),
+                new Jail(),
+                new Petpet()
         );
 
 

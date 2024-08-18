@@ -32,6 +32,8 @@ public class slashcommandmanager extends ListenerAdapter {
         String lyrics_enabled = dotenv.get("LYRICS");
         String quote_enabled = dotenv.get("QUOTE");
         String pickuplines_enabled = dotenv.get("PICKUPLINES");
+        String jail_enabled = dotenv.get("JAIL");
+        String petpet_enabled = dotenv.get("PETPET");
         List<CommandData> commands = new ArrayList<>();
 
         if (avatar_enabled.equals("true")) {
@@ -72,12 +74,12 @@ public class slashcommandmanager extends ListenerAdapter {
         }
         if (drip_enabled.equals("true")) {
             commands.add(Commands.slash("drip", "Drippify someone")
-                    .addOption(OptionType.USER, "user", "Choose someone to drippify"));
+                    .addOption(OptionType.USER, "user", "Choose someone to drippify", true));
         }
         if (rps_enabled.equals("true")) {
             commands.add(Commands.slash("rps", "Play Rock Paper Scissors against a bot!")
                     .addOptions(
-                            new OptionData(OptionType.STRING, "choice", "Choose rock, paper op sciccors")
+                            new OptionData(OptionType.STRING, "choice", "Choose rock, paper op sciccors", true)
                                     .addChoice("Rock", "rock")
                                     .addChoice("Paper", "paper")
                                     .addChoice("Scissors", "scissors")
@@ -87,7 +89,7 @@ public class slashcommandmanager extends ListenerAdapter {
         if (ticket_enabled.equals("true")) {
             commands.add(Commands.slash("ticket", "Open a ticket"));
             commands.add(Commands.slash("add", "Add another user to a ticket")
-                    .addOption(OptionType.USER, "user", "Choose a user to add to the ticket"));
+                    .addOption(OptionType.USER, "user", "Choose a user to add to the ticket", true));
 
         }
         if (meme_enabled.equals("true")) {
@@ -117,6 +119,14 @@ public class slashcommandmanager extends ListenerAdapter {
         }
         if (pickuplines_enabled.equals("true")) {
             commands.add(Commands.slash("pickuplines", "Generate a random pickup line!"));
+        }
+        if (jail_enabled.equals("true")) {
+            commands.add(Commands.slash("jail", "Put someone in jail!")
+                    .addOption(OptionType.USER, "user", "Choose the user you want to put in jail!", true));
+        }
+        if (petpet_enabled.equals("true")) {
+            commands.add(Commands.slash("petpet", "Turn someone into a petpet gif!")
+                    .addOption(OptionType.USER, "user", "Choose the user you want to turn into a petpet gif!", true));
         }
 
         event.getGuild().updateCommands().addCommands(commands).queue();
