@@ -70,14 +70,6 @@ public class Rob extends ListenerAdapter {
                         } catch (IOException e) {
                             throw new RuntimeException(e);
                         }
-
-                    } else {
-                        FileWriter myWriter = null;
-                        try {
-                            myWriter = new FileWriter("Data/Economy/" + user.getId() + "/data.txt");
-                        } catch (IOException e) {
-                            throw new RuntimeException(e);
-                        }
                         Scanner moneyScanner = null;
                         try {
                             moneyScanner = new Scanner(Path.of("Data/Economy/" + user.getId() + "/data.txt"));
@@ -100,6 +92,59 @@ public class Rob extends ListenerAdapter {
                         }
                         int oldmoney2 = Integer.parseInt(moneyScanner2.nextLine());
                         int newmoney = oldmoney2 + givenmoney;
+                        FileWriter myWriter2 = null;
+                        try {
+                            myWriter2 = new FileWriter("Data/Economy/" + event.getUser().getId() + "/data.txt");
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
+                        try {
+                            myWriter2.write(newmoney);
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
+
+                    } else {
+                        FileWriter myWriter = null;
+                        try {
+                            myWriter = new FileWriter("Data/Economy/" + user.getId() + "/data.txt");
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
+                        Scanner moneyScanner = null;
+                        try {
+                            moneyScanner = new Scanner(Path.of("Data/Economy/" + user.getId() + "/data.txt"));
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
+                        String oldmoney = String.valueOf(moneyScanner.nextInt());
+                        int money = (int) (Integer.parseInt(oldmoney) * 0.75);
+                        try {
+                            myWriter.write(money);
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
+                        int givenmoney = (Integer.parseInt(oldmoney) - money);
+                        Scanner moneyScanner2 = null;
+                        try {
+                            moneyScanner2 = new Scanner(Path.of("Data/Economy/" + event.getUser().getId() + "/data.txt"));
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
+                        int oldmoney2 = Integer.parseInt(moneyScanner2.nextLine());
+                        int newmoney = oldmoney2 + givenmoney;
+                        FileWriter myWriter2 = null;
+                        try {
+                            myWriter2 = new FileWriter("Data/Economy/" + event.getUser().getId() + "/data.txt");
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
+                        try {
+                            myWriter2.write(newmoney);
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
+
                     }
 
                 }
