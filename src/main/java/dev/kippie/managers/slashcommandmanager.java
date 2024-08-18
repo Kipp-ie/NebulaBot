@@ -34,6 +34,7 @@ public class slashcommandmanager extends ListenerAdapter {
         String pickuplines_enabled = dotenv.get("PICKUPLINES");
         String jail_enabled = dotenv.get("JAIL");
         String petpet_enabled = dotenv.get("PETPET");
+        String economy_enabled = dotenv.get("ECONOMY");
         List<CommandData> commands = new ArrayList<>();
 
         if (avatar_enabled.equals("true")) {
@@ -127,6 +128,12 @@ public class slashcommandmanager extends ListenerAdapter {
         if (petpet_enabled.equals("true")) {
             commands.add(Commands.slash("petpet", "Turn someone into a petpet gif!")
                     .addOption(OptionType.USER, "user", "Choose the user you want to turn into a petpet gif!", true));
+        }
+        if (economy_enabled.equals("true")) {
+            commands.add(Commands.slash("money", "See someone's or your own balance")
+                    .addOption(OptionType.USER,"user", "Who would you want to see the balance of?", true));
+            commands.add(Commands.slash("rob", "Rob another user (Get 25% of their cash), 75% to succeed 25% chance to go to prison!")
+                    .addOption(OptionType.USER,"user", "Choose the user to rob.", true));
         }
 
         event.getGuild().updateCommands().addCommands(commands).queue();

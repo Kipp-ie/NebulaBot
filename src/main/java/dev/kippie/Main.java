@@ -2,6 +2,7 @@ package dev.kippie;
 
 
 import dev.kippie.commands.*;
+import dev.kippie.listeners.OnEnable;
 import dev.kippie.listeners.OnJoin;
 import dev.kippie.listeners.WelcomeListener;
 import dev.kippie.managers.slashcommandmanager;
@@ -55,7 +56,10 @@ public class Main {
                 new Quote(),
                 new Pickuplines(),
                 new Jail(),
-                new Petpet()
+                new Petpet(),
+                new OnEnable(),
+                new Money(),
+                new Rob()
         );
 
 
