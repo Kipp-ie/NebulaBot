@@ -60,7 +60,8 @@ public class Main {
                 new OnEnable(),
                 new Money(),
                 new Rob(),
-                new PostReactionRole()
+                new PostReactionRole(),
+                new Suggestion()
         );
 
 

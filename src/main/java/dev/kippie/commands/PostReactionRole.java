@@ -3,7 +3,6 @@ package dev.kippie.commands;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import io.github.cdimascio.dotenv.Dotenv;
 import net.dv8tion.jda.api.EmbedBuilder;
-import net.dv8tion.jda.api.entities.channel.Channel;
 import net.dv8tion.jda.api.entities.emoji.Emoji;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.events.interaction.component.ButtonInteractionEvent;
@@ -29,7 +28,6 @@ public class PostReactionRole extends ListenerAdapter {
             String role2emoji = dotenv.get("ROLE2EMOJI");
             String role3emoji = dotenv.get("ROLE3EMOJI");
             String role4emoji = dotenv.get("ROLE4EMOJI");
-            Channel eventchannel = event.getChannel();
 
             EmbedBuilder embed = new EmbedBuilder();
             embed.setTitle("React for roles.");
@@ -78,7 +76,7 @@ public class PostReactionRole extends ListenerAdapter {
         Dotenv dotenv = Dotenv.load();
         if (event.getComponentId().equals("role1")) {
 
-            if (!Objects.requireNonNull(event.getMember()).getRoles().contains(event.getGuild().getRoleById(dotenv.get("ROLE1")))) {
+            if (!Objects.requireNonNull(event.getMember()).getRoles().contains(Objects.requireNonNull(event.getGuild()).getRoleById(dotenv.get("ROLE1")))) {
                 event.getGuild().addRoleToMember(Objects.requireNonNull(event.getMember()), Objects.requireNonNull(event.getGuild().getRoleById(dotenv.get("ROLE1")))).queue();
                 event.reply("You got the " + Objects.requireNonNull(Objects.requireNonNull(event.getGuild()).getRoleById(dotenv.get("ROLE1"))).getName() + " role!").setEphemeral(true).queue();
             } else {
@@ -88,7 +86,7 @@ public class PostReactionRole extends ListenerAdapter {
 
 
         } else if (event.getComponentId().equals("role2")) {
-            if (!Objects.requireNonNull(event.getMember()).getRoles().contains(event.getGuild().getRoleById(dotenv.get("ROLE2")))) {
+            if (!Objects.requireNonNull(event.getMember()).getRoles().contains(Objects.requireNonNull(event.getGuild()).getRoleById(dotenv.get("ROLE2")))) {
                 event.getGuild().addRoleToMember(Objects.requireNonNull(event.getMember()), Objects.requireNonNull(event.getGuild().getRoleById(dotenv.get("ROLE2")))).queue();
                 event.reply("You got the " + Objects.requireNonNull(Objects.requireNonNull(event.getGuild()).getRoleById(dotenv.get("ROLE2"))).getName() + " role!").setEphemeral(true).queue();
             } else {
@@ -98,7 +96,7 @@ public class PostReactionRole extends ListenerAdapter {
 
 
         } else if (event.getComponentId().equals("role3")) {
-            if (!Objects.requireNonNull(event.getMember()).getRoles().contains(event.getGuild().getRoleById(dotenv.get("ROLE3")))) {
+            if (!Objects.requireNonNull(event.getMember()).getRoles().contains(Objects.requireNonNull(event.getGuild()).getRoleById(dotenv.get("ROLE3")))) {
                 event.getGuild().addRoleToMember(Objects.requireNonNull(event.getMember()), Objects.requireNonNull(event.getGuild().getRoleById(dotenv.get("ROLE3")))).queue();
                 event.reply("You got the " + Objects.requireNonNull(Objects.requireNonNull(event.getGuild()).getRoleById(dotenv.get("ROLE3"))).getName() + " role!").setEphemeral(true).queue();
             } else {
@@ -107,7 +105,7 @@ public class PostReactionRole extends ListenerAdapter {
             }
 
         } else if (event.getComponentId().equals("role4")) {
-            if (!Objects.requireNonNull(event.getMember()).getRoles().contains(event.getGuild().getRoleById(dotenv.get("ROLE4")))) {
+            if (!Objects.requireNonNull(event.getMember()).getRoles().contains(Objects.requireNonNull(event.getGuild()).getRoleById(dotenv.get("ROLE4")))) {
                 event.getGuild().addRoleToMember(Objects.requireNonNull(event.getMember()), Objects.requireNonNull(event.getGuild().getRoleById(dotenv.get("ROLE4")))).queue();
                 event.reply("You got the " + Objects.requireNonNull(Objects.requireNonNull(event.getGuild()).getRoleById(dotenv.get("ROLE4"))).getName() + " role!").setEphemeral(true).queue();
             } else {

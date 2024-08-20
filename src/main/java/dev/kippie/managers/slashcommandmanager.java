@@ -4,6 +4,7 @@ import io.github.cdimascio.dotenv.Dotenv;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.events.guild.GuildReadyEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
+import net.dv8tion.jda.api.interactions.commands.Command;
 import net.dv8tion.jda.api.interactions.commands.DefaultMemberPermissions;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.CommandData;
@@ -38,11 +39,13 @@ public class slashcommandmanager extends ListenerAdapter {
         String petpet_enabled = dotenv.get("PETPET");
         String economy_enabled = dotenv.get("ECONOMY");
         String reactionroles_enabled = dotenv.get("REACTION_ROLES");
+        String suggestions_enabled = dotenv.get("SUGGESTIONS");
         List<CommandData> commands = new ArrayList<>();
 
         if (avatar_enabled.equals("true")) {
             commands.add(Commands.slash("avatar", "Get someones avatar!")
                     .addOption(OptionType.USER, "user", "Mention a user you want to grab the avatar from", true));
+            commands.add(Commands.context(Command.Type.USER, "Get user avatar"));
         }
         if (fact_enabled.equals("true")) {
             commands.add(Commands.slash("fact", "Post a random fact."));
@@ -102,15 +105,18 @@ public class slashcommandmanager extends ListenerAdapter {
         if (moderation_enabled.equals("true")) {
             commands.add(Commands.slash("kick", "Kick an user if you have the permissions.")
                     .addOption(OptionType.USER, "user", "Choose the user to kick.", true)
-                    .addOption(OptionType.STRING, "reason", "Give a reason to DM the kicked user.", true));
+                    .addOption(OptionType.STRING, "reason", "Give a reason to DM the kicked user.", true)
+                    .setDefaultPermissions(DefaultMemberPermissions.enabledFor(Permission.KICK_MEMBERS)));
             commands.add(Commands.slash("ban", "Ban an user if you have the permissions.")
                     .addOption(OptionType.USER, "user", "Choose the user to ban.", true)
                     .addOption(OptionType.STRING, "reason", "Give a reason to DM the banned user.", true)
-                    .addOption(OptionType.INTEGER, "duration", "Give the amount of days to ban this user.", true));
+                    .addOption(OptionType.INTEGER, "duration", "Give the amount of days to ban this user.", true)
+                    .setDefaultPermissions(DefaultMemberPermissions.enabledFor(Permission.BAN_MEMBERS)));
             commands.add(Commands.slash("timeout", "Timeout an user if you have the permissions.")
                     .addOption(OptionType.USER, "user", "Choose the user to give a timeout.", true)
                     .addOption(OptionType.STRING, "reason", "Give a reason to DM the timeouted user.", true)
-                    .addOption(OptionType.INTEGER, "duration", "Give the amount of hours to timeout this user.", true));
+                    .addOption(OptionType.INTEGER, "duration", "Give the amount of hours to timeout this user.", true)
+                    .setDefaultPermissions(DefaultMemberPermissions.enabledFor(Permission.MODERATE_MEMBERS)));
         }
         if (lyrics_enabled.equals("true")) {
             commands.add(Commands.slash("lyrics", "Get lyrics from a song.")
@@ -141,6 +147,10 @@ public class slashcommandmanager extends ListenerAdapter {
         if (reactionroles_enabled.equals("true")) {
             commands.add(Commands.slash("postreactionrole", "Post the reaction role embed, only usable for administrators.")
                     .setDefaultPermissions(DefaultMemberPermissions.enabledFor(Permission.ADMINISTRATOR)));
+        }
+        if (suggestions_enabled.equals("true")) {
+            commands.add(Commands.slash("suggestion", "Publish a suggestion to this server!")
+                    .addOption(OptionType.STRING, "suggestion", "Type your suggestion!"));
         }
 
         event.getGuild().updateCommands().addCommands(commands).queue();
