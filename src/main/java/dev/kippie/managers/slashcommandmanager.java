@@ -40,6 +40,7 @@ public class slashcommandmanager extends ListenerAdapter {
         String economy_enabled = dotenv.get("ECONOMY");
         String reactionroles_enabled = dotenv.get("REACTION_ROLES");
         String suggestions_enabled = dotenv.get("SUGGESTIONS");
+        String privatevc_enabled = dotenv.get("PRIVATE_VC");
         List<CommandData> commands = new ArrayList<>();
 
         if (avatar_enabled.equals("true")) {
@@ -151,6 +152,11 @@ public class slashcommandmanager extends ListenerAdapter {
         if (suggestions_enabled.equals("true")) {
             commands.add(Commands.slash("suggestion", "Publish a suggestion to this server!")
                     .addOption(OptionType.STRING, "suggestion", "Type your suggestion!"));
+        }
+        if (privatevc_enabled.equals("true")) {
+            commands.add(Commands.slash("privatevc", "Start a private vc"));
+            commands.add(Commands.context(Command.Type.USER, "Add user to private vc"));
+            commands.add(Commands.slash("deleteprivatevc", "Closes/Deletes your privateVC"));
         }
 
         event.getGuild().updateCommands().addCommands(commands).queue();

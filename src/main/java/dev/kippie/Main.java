@@ -61,7 +61,9 @@ public class Main {
                 new Money(),
                 new Rob(),
                 new PostReactionRole(),
-                new Suggestion()
+                new Suggestion(),
+                new PrivateVC(),
+                new DeletePrivateVC()
         );
 
 
