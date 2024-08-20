@@ -59,7 +59,8 @@ public class Main {
                 new Petpet(),
                 new OnEnable(),
                 new Money(),
-                new Rob()
+                new Rob(),
+                new PostReactionRole()
         );
 
 

@@ -1,8 +1,10 @@
 package dev.kippie.managers;
 
 import io.github.cdimascio.dotenv.Dotenv;
+import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.events.guild.GuildReadyEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
+import net.dv8tion.jda.api.interactions.commands.DefaultMemberPermissions;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.CommandData;
 import net.dv8tion.jda.api.interactions.commands.build.Commands;
@@ -35,6 +37,7 @@ public class slashcommandmanager extends ListenerAdapter {
         String jail_enabled = dotenv.get("JAIL");
         String petpet_enabled = dotenv.get("PETPET");
         String economy_enabled = dotenv.get("ECONOMY");
+        String reactionroles_enabled = dotenv.get("REACTION_ROLES");
         List<CommandData> commands = new ArrayList<>();
 
         if (avatar_enabled.equals("true")) {
@@ -134,6 +137,10 @@ public class slashcommandmanager extends ListenerAdapter {
                     .addOption(OptionType.USER,"user", "Who would you want to see the balance of?", true));
             commands.add(Commands.slash("rob", "Rob another user (Get 25% of their cash), 75% to succeed 25% chance to go to prison!")
                     .addOption(OptionType.USER,"user", "Choose the user to rob.", true));
+        }
+        if (reactionroles_enabled.equals("true")) {
+            commands.add(Commands.slash("postreactionrole", "Post the reaction role embed, only usable for administrators.")
+                    .setDefaultPermissions(DefaultMemberPermissions.enabledFor(Permission.ADMINISTRATOR)));
         }
 
         event.getGuild().updateCommands().addCommands(commands).queue();
