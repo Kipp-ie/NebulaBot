@@ -11,6 +11,10 @@ NebulaBot is a feature rich, opensource java Discord Bot. Designed for server ow
 - Moderation
 - Welcome Messages
 - Random Memes
+- Private VC's
+- Reaction Roles
+- Suggestions
+- Avatar tools
 - Ticket System
 - Random dog/cat pictures
   And more! If you want a full list of features you should try the bot yourself ;).
