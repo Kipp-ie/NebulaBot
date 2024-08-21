@@ -63,7 +63,8 @@ public class Main {
                 new PostReactionRole(),
                 new Suggestion(),
                 new PrivateVC(),
-                new DeletePrivateVC()
+                new DeletePrivateVC(),
+                new eightball()
         );
 
 

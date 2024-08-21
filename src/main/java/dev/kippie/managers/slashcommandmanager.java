@@ -41,6 +41,7 @@ public class slashcommandmanager extends ListenerAdapter {
         String reactionroles_enabled = dotenv.get("REACTION_ROLES");
         String suggestions_enabled = dotenv.get("SUGGESTIONS");
         String privatevc_enabled = dotenv.get("PRIVATE_VC");
+        String eightball_enabled = dotenv.get("EIGHT_BALL");
         List<CommandData> commands = new ArrayList<>();
 
         if (avatar_enabled.equals("true")) {
@@ -157,6 +158,10 @@ public class slashcommandmanager extends ListenerAdapter {
             commands.add(Commands.slash("privatevc", "Start a private vc"));
             commands.add(Commands.context(Command.Type.USER, "Add user to private vc"));
             commands.add(Commands.slash("deleteprivatevc", "Closes/Deletes your privateVC"));
+        }
+        if (eightball_enabled.equals("true")) {
+            commands.add(Commands.slash("eightball", "Let fate decide a answer to your question!")
+                    .addOption(OptionType.STRING, "question", "Whats the question you truly need an answer to?"));
         }
 
         event.getGuild().updateCommands().addCommands(commands).queue();
