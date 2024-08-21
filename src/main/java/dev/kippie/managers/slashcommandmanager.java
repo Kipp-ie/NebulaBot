@@ -145,6 +145,8 @@ public class slashcommandmanager extends ListenerAdapter {
                     .addOption(OptionType.USER,"user", "Who would you want to see the balance of?", true));
             commands.add(Commands.slash("rob", "Rob another user (Get 25% of their cash), 75% to succeed 25% chance to go to prison!")
                     .addOption(OptionType.USER,"user", "Choose the user to rob.", true));
+            commands.add(Commands.slash("higherorlower", "Gamble money in the Game Higher or Lower!")
+                    .addOption(OptionType.INTEGER, "bet", "How much money do you want to bet?"));
         }
         if (reactionroles_enabled.equals("true")) {
             commands.add(Commands.slash("postreactionrole", "Post the reaction role embed, only usable for administrators.")

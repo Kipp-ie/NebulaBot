@@ -85,11 +85,17 @@ public class Rob extends ListenerAdapter {
 
                     }
                     Document doc4 = collection.find(eq("id", event.getUser().getId())).first();
-                    int moneyGivenCombined = Integer.parseInt(givenmoney + doc4.get("money").toString())
+                    int currentmoney = Integer.parseInt(doc4.get("money").toString());
+                    int moneyGivenCombined = givenmoney + currentmoney;
                     Bson updates = Updates.combine(
                             Updates.set("money", moneyGivenCombined)
                     );
-                    collection.updateOne(Objects.requireNonNull(collection.find(eq("id", event)).first()), updates);
+                    collection.updateOne(Objects.requireNonNull(collection.find(eq("id", event.getUser().getId())).first()), updates);
+
+                    Bson updates2 = Updates.combine(
+                            Updates.set("money", newMoney)
+                    );
+                    collection.updateOne(Objects.requireNonNull(collection.find(eq("id", user.getId())).first()), updates2);
 
 
 

@@ -62,7 +62,8 @@ public class Main {
                 new Suggestion(),
                 new PrivateVC(),
                 new DeletePrivateVC(),
-                new eightball()
+                new eightball(),
+                new HigherOrLower()
         );
 
 
