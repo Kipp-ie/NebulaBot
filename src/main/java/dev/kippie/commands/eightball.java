@@ -30,6 +30,21 @@ public class eightball extends ListenerAdapter {
             response.add("NONONONOONONONONO");
             response.add("You should ask Gemini");
             response.add("Ask " + event.getGuild().getMembers().get((int) (Math.random() * event.getGuild().getMemberCount())).getUser().getName());
+            response.add("Maybe");
+            response.add("I guess we'll never know");
+            response.add("https://open.spotify.com/track/2ygeBLTP9uu3OW3VTulD8N?si=cc18070000dc4225");
+            response.add("Why do you let a eightball answer life's hardest question?");
+            response.add("ERROR: No response found for this stupid question");
+            response.add("You should ask yourself tbh");
+            response.add("What do you think? OFCOURSE NOT???");
+            response.add("I don't even know");
+            response.add("Ask your parents, they should know.");
+            response.add("You should ask your friends! (If you even have any");
+            response.add("Sorry. i can't give an answer to this question.");
+            response.add("Nah");
+            response.add("yea");
+
+
 
             EmbedBuilder embed = new EmbedBuilder();
             embed.setTitle("8ball");
