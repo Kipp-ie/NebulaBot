@@ -1,10 +1,17 @@
 package dev.kippie.commands;
 
+import com.mongodb.client.MongoClient;
+import com.mongodb.client.MongoClients;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoDatabase;
+import com.mongodb.client.model.Updates;
 import io.github.cdimascio.dotenv.Dotenv;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
+import org.bson.Document;
+import org.bson.conversions.Bson;
 
 import java.awt.*;
 import java.io.FileWriter;
@@ -13,6 +20,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Objects;
 import java.util.Scanner;
+
+import static com.mongodb.client.model.Filters.eq;
 
 public class Rob extends ListenerAdapter {
     @Override
@@ -48,108 +57,41 @@ public class Rob extends ListenerAdapter {
                     embed.setFooter(name);
                     embed.setDescription("You managed to get 25% of his cash! Good job!");
                     event.replyEmbeds(embed.build()).queue();
-                    if (!Files.exists(Path.of("Data/Economy/" + user.getId() + "/data.txt"))) {
-                        try {
-                            Files.createDirectory(Path.of("Data/Economy/" + user.getId()));
-                        } catch (IOException e) {
-                            throw new RuntimeException(e);
-                        }
-                        try {
-                            Files.createFile(Path.of("Data/Economy/" + user.getId() + "/data.txt"));
-                        } catch (IOException e) {
-                            throw new RuntimeException(e);
-                        }
-                        FileWriter myWriter = null;
-                        try {
-                            myWriter = new FileWriter("Data/Economy/" + user.getId() + "/data.txt");
-                        } catch (IOException e) {
-                            throw new RuntimeException(e);
-                        }
-                        try {
-                            myWriter.write("100");
-                        } catch (IOException e) {
-                            throw new RuntimeException(e);
-                        }
-                        Scanner moneyScanner = null;
-                        try {
-                            moneyScanner = new Scanner(Path.of("Data/Economy/" + user.getId() + "/data.txt"));
-                        } catch (IOException e) {
-                            throw new RuntimeException(e);
-                        }
-                        String oldmoney = moneyScanner.nextLine();
-                        int money = (int) (Integer.parseInt(oldmoney) * 0.75);
-                        try {
-                            myWriter.write(money);
-                        } catch (IOException e) {
-                            throw new RuntimeException(e);
-                        }
-                        int givenmoney = (Integer.parseInt(oldmoney) - money);
-                        Scanner moneyScanner2 = null;
-                        try {
-                            moneyScanner2 = new Scanner(Path.of("Data/Economy/" + event.getUser().getId() + "/data.txt"));
-                        } catch (IOException e) {
-                            throw new RuntimeException(e);
-                        }
-                        int oldmoney2 = Integer.parseInt(moneyScanner2.nextLine());
-                        int newmoney = oldmoney2 + givenmoney;
-                        FileWriter myWriter2 = null;
-                        try {
-                            myWriter2 = new FileWriter("Data/Economy/" + event.getUser().getId() + "/data.txt");
-                        } catch (IOException e) {
-                            throw new RuntimeException(e);
-                        }
-                        try {
-                            myWriter2.write(newmoney);
-                        } catch (IOException e) {
-                            throw new RuntimeException(e);
-                        }
-
-                    } else {
-                        FileWriter myWriter = null;
-                        try {
-                            myWriter = new FileWriter("Data/Economy/" + user.getId() + "/data.txt");
-                        } catch (IOException e) {
-                            throw new RuntimeException(e);
-                        }
-                        Scanner moneyScanner = null;
-                        try {
-                            moneyScanner = new Scanner(Path.of("Data/Economy/" + user.getId() + "/data.txt"));
-                        } catch (IOException e) {
-                            throw new RuntimeException(e);
-                        }
-                        String oldmoney = String.valueOf(moneyScanner.nextInt());
-                        int money = (int) (Integer.parseInt(oldmoney) * 0.75);
-                        try {
-                            myWriter.write(money);
-                        } catch (IOException e) {
-                            throw new RuntimeException(e);
-                        }
-                        int givenmoney = (Integer.parseInt(oldmoney) - money);
-                        Scanner moneyScanner2 = null;
-                        try {
-                            moneyScanner2 = new Scanner(Path.of("Data/Economy/" + event.getUser().getId() + "/data.txt"));
-                        } catch (IOException e) {
-                            throw new RuntimeException(e);
-                        }
-                        int oldmoney2 = Integer.parseInt(moneyScanner2.nextLine());
-                        int newmoney = oldmoney2 + givenmoney;
-                        FileWriter myWriter2 = null;
-                        try {
-                            myWriter2 = new FileWriter("Data/Economy/" + event.getUser().getId() + "/data.txt");
-                        } catch (IOException e) {
-                            throw new RuntimeException(e);
-                        }
-                        try {
-                            myWriter2.write(newmoney);
-                        } catch (IOException e) {
-                            throw new RuntimeException(e);
-                        }
+                    MongoClient mongoClient = MongoClients.create(dotenv.get("MONGODB_URI"));
+                    MongoDatabase database = mongoClient.getDatabase("users");
+                    MongoCollection<Document> collection = database.getCollection("users");
+                    Document doc = collection.find(eq("id", user.getId())).first();
+                    if (doc == null) {
+                        collection.insertOne(new Document("id", user.getId()));
+                        Bson updates = Updates.combine(
+                                Updates.set("money", "100")
+                        );
+                        collection.updateOne(Objects.requireNonNull(collection.find(eq("id", user.getId())).first()), updates);
 
                     }
+                    Document doc2 = collection.find(eq("id", user.getId())).first();
+                    int oldMoney = Integer.parseInt(doc2.get("money").toString());
+                    int newMoney = (int) (oldMoney * 0.75);
+
+                    int givenmoney = oldMoney - newMoney;
+
+                    Document doc3 = collection.find(eq("id", event.getUser().getId())).first();
+                    if (doc3 == null) {
+                        collection.insertOne(new Document("id", event.getUser().getId()));
+                        Bson updates = Updates.combine(
+                                Updates.set("money", "100")
+                        );
+                        collection.updateOne(Objects.requireNonNull(collection.find(eq("id", user.getId())).first()), updates);
+
+                    }
+                    Document doc4 = collection.find(eq("id", event.getUser().getId())).first();
+                    int moneyGivenCombined = Integer.parseInt(givenmoney + doc4.get("money").toString())
+                    Bson updates = Updates.combine(
+                            Updates.set("money", moneyGivenCombined)
+                    );
+                    collection.updateOne(Objects.requireNonNull(collection.find(eq("id", event)).first()), updates);
+
+
 
                 }
-                System.out.println(random);
-            }
-        }
-    }
-}
+}}}}
