@@ -17,15 +17,25 @@ NebulaBot is a feature rich, opensource java Discord Bot. Designed for server ow
 - Avatar tools
 - Ticket System
 - Random dog/cat pictures
+- Economy (WIP)
+- Xp system
   And more! If you want a full list of features you should try the bot yourself ;).
 
 
 ## Running on your own machine/server
 
+
+
+For
+- XP System
+- Economy
+
+You will need to have a MongoDB server. I recommend MongoDB Atlas: [MongoDB Atlas](https://www.mongodb.com/products/platform/atlas-database) (It's free).
+
 By downloading and extracting the zip in releases you get a .jar and a .env file. You can't delete or move the .env file, that would break the bot.
 Running the bot is pretty simple by using this command in your terminal (This can differ if you use other java versions).
 
-```bash
+```java
   java -jar <jarname>.jar
 ```
 
