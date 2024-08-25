@@ -50,6 +50,13 @@ public class Money extends ListenerAdapter {
                 embed.setFooter(name);
                 event.replyEmbeds(embed.build()).queue();
             } else {
+                if (doc.get("money") == null) {
+                    collection.insertOne(new Document("id", user.getId()));
+                    Bson updates = Updates.combine(
+                            Updates.set("money", "100")
+                    );
+                    collection.updateOne(Objects.requireNonNull(collection.find(eq("id", user.getId())).first()), updates);
+                }
                 EmbedBuilder embed = new EmbedBuilder();
                 embed.setTitle("Balance of " + user.getName());
                 embed.addField("Balance", Objects.requireNonNull(collection.find(eq("id", user.getId())).first().get("money").toString()), false);

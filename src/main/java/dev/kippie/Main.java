@@ -3,6 +3,7 @@ package dev.kippie;
 
 import dev.kippie.commands.*;
 import dev.kippie.listeners.OnJoin;
+import dev.kippie.listeners.OnMessage;
 import dev.kippie.listeners.WelcomeListener;
 import dev.kippie.managers.slashcommandmanager;
 import io.github.cdimascio.dotenv.Dotenv;
@@ -63,7 +64,10 @@ public class Main {
                 new PrivateVC(),
                 new DeletePrivateVC(),
                 new eightball(),
-                new HigherOrLower()
+                new HigherOrLower(),
+                new OnMessage(),
+                new Points(),
+                new LeaderBoard()
         );
 
 

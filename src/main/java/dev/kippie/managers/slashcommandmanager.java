@@ -165,6 +165,9 @@ public class slashcommandmanager extends ListenerAdapter {
             commands.add(Commands.slash("eightball", "Let fate decide a answer to your question!")
                     .addOption(OptionType.STRING, "question", "Whats the question you truly need an answer to?"));
         }
+        commands.add(Commands.slash("points", "Get the point balance from an user.")
+                .addOption(OptionType.USER, "user", "Select the user to view the point balance from."));
+        commands.add(Commands.slash("leaderboard", "Get the points leaderboard"));
 
         event.getGuild().updateCommands().addCommands(commands).queue();
     }
