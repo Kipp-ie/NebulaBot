@@ -12,6 +12,7 @@ import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEve
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import org.bson.Document;
 
+import java.awt.*;
 import java.util.Objects;
 
 import static com.mongodb.client.model.Aggregates.limit;
@@ -25,14 +26,16 @@ public class LeaderBoard extends ListenerAdapter {
             MongoClient mongoClient = MongoClients.create(dotenv.get("MONGODB_URI"));
             MongoDatabase database = mongoClient.getDatabase("users");
             MongoCollection<Document> collection = database.getCollection("users");
-            Document doc = collection.find().sort(new BasicDBObject("points",1)).limit(1).first();
+            Document doc = collection.find().sort(new BasicDBObject("points",-1)).limit(1).first();
 
             EmbedBuilder embed = new EmbedBuilder();
-            embed.setTitle("Leaderboard King");
-            System.out.println(doc.get("id").toString());
-            User user = event.getGuild().getMemberById(doc.get("id").toString()).getUser();
-            embed.addField("Number 1", user.getName(), false);
-
+            embed.setTitle("Leaderboard");
+            User user = event.getJDA().getUserById(doc.get("id").toString());
+            embed.addField("Number 1", "<@" + user.getId() + ">", false);
+            String color = dotenv.get("COLOR");
+            embed.setColor(Color.decode(color));
+            String name = dotenv.get("BOT_NAME");
+            embed.setFooter(name);
             event.replyEmbeds(embed.build()).queue();
 
         }

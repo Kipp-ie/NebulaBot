@@ -42,6 +42,7 @@ public class slashcommandmanager extends ListenerAdapter {
         String suggestions_enabled = dotenv.get("SUGGESTIONS");
         String privatevc_enabled = dotenv.get("PRIVATE_VC");
         String eightball_enabled = dotenv.get("EIGHT_BALL");
+        String xpsystem_enabled = dotenv.get("POINTS");
         List<CommandData> commands = new ArrayList<>();
 
         if (avatar_enabled.equals("true")) {
@@ -165,9 +166,12 @@ public class slashcommandmanager extends ListenerAdapter {
             commands.add(Commands.slash("eightball", "Let fate decide a answer to your question!")
                     .addOption(OptionType.STRING, "question", "Whats the question you truly need an answer to?"));
         }
-        commands.add(Commands.slash("points", "Get the point balance from an user.")
-                .addOption(OptionType.USER, "user", "Select the user to view the point balance from."));
-        commands.add(Commands.slash("leaderboard", "Get the points leaderboard"));
+        if (xpsystem_enabled.equals("true")) {
+            commands.add(Commands.slash("points", "Get the point balance from an user.")
+                    .addOption(OptionType.USER, "user", "Select the user to view the point balance from."));
+            commands.add(Commands.slash("leaderboard", "Get the points leaderboard"));
+            commands.add(Commands.slash("shop", "Open the points shop"));
+        }
 
         event.getGuild().updateCommands().addCommands(commands).queue();
     }

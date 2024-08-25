@@ -67,7 +67,8 @@ public class Main {
                 new HigherOrLower(),
                 new OnMessage(),
                 new Points(),
-                new LeaderBoard()
+                new LeaderBoard(),
+                new Shop()
         );
 
 
