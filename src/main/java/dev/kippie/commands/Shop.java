@@ -73,17 +73,95 @@ public class Shop extends ListenerAdapter {
                 MongoCollection<Document> collection = database.getCollection("users");
                 Document doc = collection.find(eq("id", event.getUser().getId())).first();
 
+                if (doc == null) {
+                    event.reply("You don't have any points!").setEphemeral(true).queue();
+                } else {
+                    if (doc.get("points") == null) {
+                        event.reply("You don't have any points!").setEphemeral(true).queue();
+                    } else {
+                        if (Integer.parseInt(dotenv.get("ITEM_1_PRICE").toString()) <= Integer.parseInt(doc.get("points").toString())) {
+                            if (!event.getMember().getRoles().contains(event.getGuild().getRoleById(dotenv.get("ITEM_1_ID")))) {
+                                event.reply("You bought <@&" + event.getGuild().getRoleById(dotenv.get("ITEM_1_ID")).getId() + ">!").setEphemeral(true).queue();
+                                Integer points = Integer.parseInt(doc.get("points").toString()) - Integer.parseInt(dotenv.get("ITEM_1_PRICE").toString());
+
+                                Bson updates = Updates.combine(
+                                        Updates.set("points", points)
+                                );
+                                collection.updateOne(Objects.requireNonNull(collection.find(eq("id", event.getUser().getId())).first()), updates);
+                                event.getGuild().addRoleToMember(event.getMember(), event.getGuild().getRoleById(dotenv.get("ITEM_1_ID"))).queue();
+                            } else {
+                                event.reply("You already own this role!").setEphemeral(true).queue();
+                            }
+
+                        } else {
+                            event.reply("You don't have enough points!").setEphemeral(true).queue();
+                        }
+                    }
+                }
+
             } else if (event.getValues().get(0).equals("item2")) {
                 MongoClient mongoClient = MongoClients.create(dotenv.get("MONGODB_URI"));
                 MongoDatabase database = mongoClient.getDatabase("users");
                 MongoCollection<Document> collection = database.getCollection("users");
                 Document doc = collection.find(eq("id", event.getUser().getId())).first();
+                if (doc == null) {
+                    event.reply("You don't have any points!").setEphemeral(true).queue();
+                } else {
+                    if (doc.get("points") == null) {
+                        event.reply("You don't have any points!").setEphemeral(true).queue();
+                    } else {
+                        if (Integer.parseInt(dotenv.get("ITEM_2_PRICE").toString()) <= Integer.parseInt(doc.get("points").toString())) {
+                            if (!event.getMember().getRoles().contains(event.getGuild().getRoleById(dotenv.get("ITEM_2_ID")))) {
+                                event.reply("You bought <@&" + event.getGuild().getRoleById(dotenv.get("ITEM_2_ID")).getId() + ">!").setEphemeral(true).queue();
+                                Integer points = Integer.parseInt(doc.get("points").toString()) - Integer.parseInt(dotenv.get("ITEM_2_PRICE").toString());
+
+                                Bson updates = Updates.combine(
+                                        Updates.set("points", points)
+                                );
+                                collection.updateOne(Objects.requireNonNull(collection.find(eq("id", event.getUser().getId())).first()), updates);
+                                event.getGuild().addRoleToMember(event.getMember(), event.getGuild().getRoleById(dotenv.get("ITEM_2_ID"))).queue();
+                            } else {
+                                event.reply("You already own this role!").setEphemeral(true).queue();
+                            }
+
+                        } else {
+                            event.reply("You don't have enough points!").setEphemeral(true).queue();
+                        }
+                    }
+                }
 
             } else if (event.getValues().get(0).equals("item3")) {
                 MongoClient mongoClient = MongoClients.create(dotenv.get("MONGODB_URI"));
                 MongoDatabase database = mongoClient.getDatabase("users");
                 MongoCollection<Document> collection = database.getCollection("users");
                 Document doc = collection.find(eq("id", event.getUser().getId())).first();
+
+                if (doc == null) {
+                    event.reply("You don't have any points!").setEphemeral(true).queue();
+                } else {
+                    if (doc.get("points") == null) {
+                        event.reply("You don't have any points!").setEphemeral(true).queue();
+                    } else {
+                        if (Integer.parseInt(dotenv.get("ITEM_3_PRICE").toString()) <= Integer.parseInt(doc.get("points").toString())) {
+                            if (!event.getMember().getRoles().contains(event.getGuild().getRoleById(dotenv.get("ITEM_3_ID")))) {
+                                event.reply("You bought <@&" + event.getGuild().getRoleById(dotenv.get("ITEM_3_ID")).getId() + ">!").setEphemeral(true).queue();
+                                Integer points = Integer.parseInt(doc.get("points").toString()) - Integer.parseInt(dotenv.get("ITEM_3_PRICE").toString());
+
+                                Bson updates = Updates.combine(
+                                        Updates.set("points", points)
+                                );
+                                collection.updateOne(Objects.requireNonNull(collection.find(eq("id", event.getUser().getId())).first()), updates);
+                                event.getGuild().addRoleToMember(event.getMember(), event.getGuild().getRoleById(dotenv.get("ITEM_3_ID"))).queue();
+                            } else {
+                                event.reply("You already own this role!").setEphemeral(true).queue();
+                            }
+
+                        } else {
+                            event.reply("You don't have enough points!").setEphemeral(true).queue();
+                        }
+                    }
+                }
+            }
 
             } else if (event.getValues().get(0).equals("item4")) {
                 MongoClient mongoClient = MongoClients.create(dotenv.get("MONGODB_URI"));
@@ -98,14 +176,19 @@ public class Shop extends ListenerAdapter {
                         event.reply("You don't have any points!").setEphemeral(true).queue();
                     } else {
                         if (Integer.parseInt(dotenv.get("ITEM_4_PRICE").toString()) <= Integer.parseInt(doc.get("points").toString())) {
-                            event.reply("You bought role4").setEphemeral(true).queue();
-                            Integer points = Integer.parseInt(doc.get("points").toString()) - Integer.parseInt(dotenv.get("ITEM_4_PRICE").toString());
+                            if (!event.getMember().getRoles().contains(event.getGuild().getRoleById(dotenv.get("ITEM_4_ID")))) {
+                                event.reply("You bought <@&" + event.getGuild().getRoleById(dotenv.get("ITEM_4_ID")).getId() + ">!").setEphemeral(true).queue();
+                                Integer points = Integer.parseInt(doc.get("points").toString()) - Integer.parseInt(dotenv.get("ITEM_4_PRICE").toString());
 
-                            Bson updates = Updates.combine(
-                                    Updates.set("points", points)
-                            );
-                            collection.updateOne(Objects.requireNonNull(collection.find(eq("id", event.getUser().getId())).first()), updates);
-                            event.getGuild().addRoleToMember(event.getMember(), event.getGuild().getRoleById(dotenv.get("ITEM_4_ID"))).queue();
+                                Bson updates = Updates.combine(
+                                        Updates.set("points", points)
+                                );
+                                collection.updateOne(Objects.requireNonNull(collection.find(eq("id", event.getUser().getId())).first()), updates);
+                                event.getGuild().addRoleToMember(event.getMember(), event.getGuild().getRoleById(dotenv.get("ITEM_4_ID"))).queue();
+                            } else {
+                                event.reply("You already own this role!").setEphemeral(true).queue();
+                            }
+
                         } else {
                             event.reply("You don't have enough points!").setEphemeral(true).queue();
                         }
@@ -116,4 +199,4 @@ public class Shop extends ListenerAdapter {
 
         }
     }
-}
+

@@ -30,8 +30,7 @@ public class LeaderBoard extends ListenerAdapter {
 
             EmbedBuilder embed = new EmbedBuilder();
             embed.setTitle("Leaderboard");
-            User user = event.getJDA().getUserById(doc.get("id").toString());
-            embed.addField("Number 1", "<@" + user.getId() + ">", false);
+            embed.addField("Number 1", "<@" + doc.get("id").toString() + ">", false);
             String color = dotenv.get("COLOR");
             embed.setColor(Color.decode(color));
             String name = dotenv.get("BOT_NAME");

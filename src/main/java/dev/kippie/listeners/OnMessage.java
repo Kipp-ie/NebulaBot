@@ -21,7 +21,7 @@ public class OnMessage extends ListenerAdapter {
     @Override
 
     public void onMessageReceived(MessageReceivedEvent event) {
-        if (!event.getMember().getUser().isBot()) {
+        if (!event.getAuthor().isBot()) {
             Dotenv dotenv = Dotenv.load();
             if (dotenv.get("POINTS").equals("true")) {
 
