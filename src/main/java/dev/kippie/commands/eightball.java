@@ -29,7 +29,6 @@ public class eightball extends ListenerAdapter {
             response.add("Ask this to the president of Nepal");
             response.add("NONONONOONONONONO");
             response.add("You should ask Gemini");
-            response.add("Ask " + event.getGuild().getMembers().get((int) (Math.random() * event.getGuild().getMemberCount())).getUser().getName());
             response.add("Maybe");
             response.add("I guess we'll never know");
             response.add("https://open.spotify.com/track/2ygeBLTP9uu3OW3VTulD8N?si=cc18070000dc4225");

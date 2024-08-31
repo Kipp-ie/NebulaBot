@@ -1,5 +1,6 @@
 package dev.kippie.commands;
 
+import dev.kippie.Main;
 import io.github.cdimascio.dotenv.Dotenv;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.User;

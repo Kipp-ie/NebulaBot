@@ -68,7 +68,8 @@ public class Main {
                 new OnMessage(),
                 new Points(),
                 new LeaderBoard(),
-                new Shop()
+                new Shop(),
+                new Wish()
         );
 
 
